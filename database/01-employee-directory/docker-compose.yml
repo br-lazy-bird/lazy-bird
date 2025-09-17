@@ -1,0 +1,79 @@
+services:
+  # PostgreSQL Database
+  db:
+    image: postgres:17
+    container_name: employee_directory_db
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "${POSTGRES_EXTERNAL_PORT}:5432"
+    volumes:
+      # No persistent volume - fresh data on restart for consistent candidate experience
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - lazy_bird_network
+
+  # FastAPI Backend
+  backend:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: employee_directory_backend
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+      PYTHON_ENV: ${PYTHON_ENV}
+    ports:
+      - "${BACKEND_PORT}:8000"
+    volumes:
+      # Bind mount for hot reload during development
+      - ./backend/app:/app
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - lazy_bird_network
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload 
+  
+  # React Frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: employee_directory_frontend
+    environment:
+      NODE_ENV: ${NODE_ENV}
+      REACT_APP_BACKEND_URL: http://localhost:${BACKEND_PORT}
+    ports:
+      - "${FRONTEND_PORT}:3000"
+    volumes:
+      # Bind mount for hot reload during development
+      - ./frontend/src:/app/src
+      - ./frontend/public:/app/public
+      # Exclude node_modules to avoid conflicts
+      - /app/node_modules
+    depends_on:
+      - backend
+    networks:
+      - lazy_bird_network
+    command: npm start
+
+# Volumes
+volumes:
+  postgres_data:
+
+# Networks:
+networks:
+  lazy_bird_network:
+    driver: bridge
+
+
+
+
+      
