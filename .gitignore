@@ -27,3 +27,6 @@ dist/
 
 # Docker
 .dockerignore
+
+# VsCode
+.vscode
