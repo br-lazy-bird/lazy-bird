@@ -37,5 +37,20 @@ services:
       retries: 3
       start_period: 40s
 
+  frontend:
+    build: ./frontend
+    container_name: employee_directory_frontend
+    environment:
+      - NODE_ENV=${NODE_ENV}
+    ports:
+      - "${FRONTEND_PORT}:3000"
+    volumes:
+      - ./frontend/src:/app/src
+      - ./frontend/public:/app/public
+    depends_on:
+      - backend
+    stdin_open: true
+    tty: true
+
 volumes:
   postgres_data:
