@@ -1,8 +1,3 @@
-"""
-API Controllers for employee search endpoints.
-Handles HTTP requests, responses, and error handling.
-"""
-
 import logging
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
@@ -23,9 +18,6 @@ async def search_john_smith(db: Session = Depends(get_db)) -> dict:
     """
     Search for employees named John Smith.
 
-    This endpoint demonstrates database indexing performance issues.
-    Without proper indexes, this query will be slow due to table scans.
-
     Returns:
         dict: Search results with performance metrics
             {
@@ -37,10 +29,7 @@ async def search_john_smith(db: Session = Depends(get_db)) -> dict:
         HTTPException: 500 if database error occurs
     """
     try:
-        # Initialize service with database session
         employee_service = EmployeeSearchService(db)
-
-        # Execute the search
         results = employee_service.search_john_smith()
 
         return results
