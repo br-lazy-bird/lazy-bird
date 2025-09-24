@@ -1,8 +1,13 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-import os
 from dotenv import load_dotenv
-from sqlalchemy import create_engine, text
+
+from .logging_config import setup_logging
+
+setup_logging()
+
+from .dev_endpoints import router as dev_router
+from .controllers import router as employee_router
 
 load_dotenv()
 
@@ -18,29 +23,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.include_router(dev_router)
+app.include_router(employee_router)
+
 
 @app.get("/")
 async def root():
     return {"message": "Employee Directory API is running"}
-
-
-@app.get("/health")
-async def health_check():
-    return {"status": "healthy", "service": "backend"}
-
-
-@app.get("/db-test")
-async def database_test():
-    database_url = os.getenv("DATABASE_URL")
-    if not database_url:
-        raise HTTPException(status_code=500, detail="DATABASE_URL not configured")
-
-    try:
-        engine = create_engine(database_url)
-        with engine.connect() as connection:
-            connection.execute(text("SELECT 1"))
-
-        return {"status": "connected", "message": "Database connection successful"}
-
-    except Exception as e:
-        return {"status": "error", "message": f"Database connection failed: {str(e)}"}
