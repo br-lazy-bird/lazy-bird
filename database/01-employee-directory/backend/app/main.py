@@ -8,6 +8,7 @@ setup_logging()
 
 from .api.dev_endpoints import router as dev_router
 from .api.employee_search import router as search_router
+from .api.performance import router as performance_router
 
 load_dotenv()
 
@@ -25,6 +26,7 @@ app.add_middleware(
 
 app.include_router(dev_router)
 app.include_router(search_router)
+app.include_router(performance_router)
 
 
 @app.get("/")
