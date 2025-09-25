@@ -16,6 +16,14 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'        # Limit to 0.5 CPU cores (slow CPU simulation)
+          memory: 512M       # Limit to 512MB RAM (memory pressure)
+        reservations:
+          cpus: '0.25'       # Reserve at least 0.25 cores
+          memory: 256M 
 
   backend:
     build: ./backend
