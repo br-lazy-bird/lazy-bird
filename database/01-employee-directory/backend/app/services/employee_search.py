@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
-from .repositories import EmployeeRepository
-from .logging_config import get_logger
+from ..repositories.employee import EmployeeRepository
+from ..core.logging_config import get_logger
 
 logger = get_logger(__name__)
 

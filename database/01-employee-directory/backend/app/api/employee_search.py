@@ -3,8 +3,8 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import SQLAlchemyError
 
-from .database import get_db
-from .services import EmployeeSearchService
+from ..core.database import get_db
+from ..services.employee_search import EmployeeSearchService
 
 # Configure logging
 logger = logging.getLogger(__name__)

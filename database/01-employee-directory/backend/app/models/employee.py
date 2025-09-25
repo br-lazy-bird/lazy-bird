@@ -1,11 +1,8 @@
 from datetime import datetime
-from typing import Optional
 from sqlalchemy import String, DateTime, func
 from sqlalchemy.orm import Mapped, mapped_column, DeclarativeBase
 
-
-class Base(DeclarativeBase):
-    pass
+from .base import Base
 
 
 class Employee(Base):

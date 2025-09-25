@@ -1,7 +1,7 @@
 import time
 from sqlalchemy.orm import Session
 
-from .models import Employee
+from ..models.employee import Employee
 
 
 class EmployeeRepository:

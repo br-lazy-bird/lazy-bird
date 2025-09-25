@@ -9,8 +9,8 @@ from sqlalchemy import create_engine, text
 from sqlalchemy.orm import Session
 from dotenv import load_dotenv
 
-from .database import get_db
-from .models import Employee
+from ..core.database import get_db
+from ..models.employee import Employee
 
 load_dotenv()
 

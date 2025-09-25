@@ -2,12 +2,12 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 
-from .logging_config import setup_logging
+from .core.logging_config import setup_logging
 
 setup_logging()
 
-from .dev_endpoints import router as dev_router
-from .controllers import router as employee_router
+from .api.dev_endpoints import router as dev_router
+from .api.employee_search import router as search_router
 
 load_dotenv()
 
@@ -24,7 +24,7 @@ app.add_middleware(
 )
 
 app.include_router(dev_router)
-app.include_router(employee_router)
+app.include_router(search_router)
 
 
 @app.get("/")
