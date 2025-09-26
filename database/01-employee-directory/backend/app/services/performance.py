@@ -1,4 +1,6 @@
-# Add this class to your existing services.py file
+"""
+Service for performance APIs.
+"""
 
 import asyncio
 import json
@@ -7,14 +9,14 @@ import logging
 from typing import AsyncGenerator
 from sqlalchemy.orm import Session
 
-from .employee_search import EmployeeSearchService
+from app.services.employee_search import EmployeeSearchService
 
 logger = logging.getLogger(__name__)
 
 
 class PerformanceService:
     """
-    Service for running database performance tests
+    Database performance services.
     """
 
     def __init__(self, db: Session):
@@ -36,44 +38,25 @@ class PerformanceService:
         total_time = 0
         results_count = 0
 
-        i = 0  # Ensure 'i' is always defined
-        try:
-            for i in range(total_queries):
-                # Execute search query with timing
-                start_time = time.time()
+        i = 0
 
-                try:
-                    query_result = self.employee_service.search_john_smith()
-                    results_count = query_result.get("results_count", 0)
+        for i in range(total_queries):
 
-                except Exception as query_error:
-                    logger.warning(f"Query {i+1} failed: {str(query_error)}")
-                    results_count = 0
+            start_time = time.time()
+            query_result = self.employee_service.search_john_smith()
+            results_count = query_result.get("results_count", 0)
+            end_time = time.time()
+            query_time = (end_time - start_time) * 1000  # Convert to ms
+            total_time += query_time
 
-                end_time = time.time()
-                query_time = (end_time - start_time) * 1000  # Convert to ms
-                total_time += query_time
+            progress_data = self._create_progress_data(
+                i + 1, total_queries, query_time, total_time, results_count
+            )
 
-                # Generate progress update
-                progress_data = self._create_progress_data(
-                    i + 1, total_queries, query_time, total_time, results_count
-                )
+            yield f"data: {json.dumps(progress_data)}\n\n"
 
-                yield f"data: {json.dumps(progress_data)}\n\n"
-
-                # Small delay to prevent overwhelming
-                await asyncio.sleep(0.05)
-
-        except Exception as e:
-            logger.error(f"Error during performance test: {str(e)}")
-            error_data = {
-                "status": "error",
-                "error_message": "Performance test failed",
-                "total_time": round(total_time, 2),
-                "queries_completed": i if "i" in locals() else 0,
-            }
-            yield f"data: {json.dumps(error_data)}\n\n"
-            return
+            # Small delay to prevent overwhelming
+            await asyncio.sleep(0.05)
 
         # Final summary
         final_result = self._create_final_result(

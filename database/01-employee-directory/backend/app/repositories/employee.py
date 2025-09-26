@@ -1,13 +1,16 @@
+"""
+Repository to handle employees table.
+"""
+
 import time
 from sqlalchemy.orm import Session
 
-from ..models.employee import Employee
+from app.models.employee import Employee
 
 
 class EmployeeRepository:
     """
     Repository for Employee database operations.
-    Provides clean interface for database access with timing instrumentation.s
     """
 
     def __init__(self, db: Session) -> None:

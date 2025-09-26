@@ -1,11 +1,15 @@
+"""
+Endpoints to check performance.
+"""
+
 import logging
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.responses import StreamingResponse
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import SQLAlchemyError
 
-from ..core.database import get_db
-from ..services.performance import PerformanceService
+from app.core.database import get_db
+from app.services.performance import PerformanceService
 
 logger = logging.getLogger(__name__)
 
@@ -40,14 +44,14 @@ async def check_search_performance(db: Session = Depends(get_db)) -> StreamingRe
         )
 
     except SQLAlchemyError as e:
-        logger.error(f"Database error in performance_test endpoint: {str(e)}")
+        logger.error("Database error in performance_test endpoint: %s}", str(e))
         raise HTTPException(
             status_code=500,
             detail="Database error occurred during performance test",
-        )
+        ) from e
     except Exception as e:
-        logger.error(f"Unexpected error in performance_test endpoint: {str(e)}")
+        logger.error("Unexpected error in performance_test endpoint: %s", str(e))
         raise HTTPException(
             status_code=500,
             detail="An unexpected error occurred during performance test",
-        )
+        ) from e

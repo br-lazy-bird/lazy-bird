@@ -1,3 +1,7 @@
+"""
+Base class for SQLAlchemy models.
+"""
+
 from sqlalchemy.orm import DeclarativeBase
 
 

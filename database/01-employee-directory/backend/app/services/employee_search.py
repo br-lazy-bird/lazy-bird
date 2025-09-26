@@ -1,7 +1,11 @@
+"""
+Services for employee search APIs.
+"""
+
 from sqlalchemy.orm import Session
 
-from ..repositories.employee import EmployeeRepository
-from ..core.logging_config import get_logger
+from app.repositories.employee import EmployeeRepository
+from app.core.logging_config import get_logger
 
 logger = get_logger(__name__)
 
@@ -32,7 +36,9 @@ class EmployeeSearchService:
         execution_time_ms = round(execution_time_seconds * 1000, 2)
 
         logger.info(
-            f"John Smith search completed: {employee_count} results in {execution_time_ms}ms"
+            "John Smith search completed: %d results in %.2fms",
+            employee_count,
+            execution_time_ms,
         )
 
         return {"results_count": employee_count, "execution_time_ms": execution_time_ms}

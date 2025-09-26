@@ -1,16 +1,16 @@
 """
-Development and debugging endpoints.
-These endpoints are only for development/testing purposes.
+Useful endpoints for development.
 """
 
 import os
 from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy import create_engine, text
+from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import Session
 from dotenv import load_dotenv
 
-from ..core.database import get_db
-from ..models.employee import Employee
+from app.core.database import get_db
+from app.models.employee import Employee
 
 load_dotenv()
 
@@ -19,11 +19,17 @@ router = APIRouter()
 
 @router.get("/health")
 async def health_check():
+    """
+    Checks if the backend is running properly
+    """
     return {"status": "healthy", "service": "backend"}
 
 
 @router.get("/db-test")
 async def database_test():
+    """
+    Checks if the database credentials are set and valid.
+    """
     database_url = os.getenv("DATABASE_URL")
     if not database_url:
         raise HTTPException(status_code=500, detail="DATABASE_URL not configured")
@@ -35,12 +41,15 @@ async def database_test():
 
         return {"status": "connected", "message": "Database connection successful"}
 
-    except Exception as e:
+    except SQLAlchemyError as e:
         return {"status": "error", "message": f"Database connection failed: {str(e)}"}
 
 
 @router.get("/sqlalchemy-test")
 async def sqlalchemy_test(db: Session = Depends(get_db)):
+    """
+    Checks if the ORM is working properly.
+    """
     try:
         employee_count = db.query(Employee).count()
         sample_employee = db.query(Employee).first()
@@ -60,7 +69,7 @@ async def sqlalchemy_test(db: Session = Depends(get_db)):
                 else None
             ),
         }
-    except Exception as e:
+    except SQLAlchemyError as e:
         raise HTTPException(
             status_code=500, detail=f"SQLAlchemy connection failed: {str(e)}"
-        )
+        ) from e

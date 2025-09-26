@@ -1,3 +1,7 @@
+"""
+Logger configuration and factory.
+"""
+
 import logging
 
 
