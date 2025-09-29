@@ -18,7 +18,9 @@ export interface ProgressData {
 export interface FinalResult {
   status: 'completed';
   total_execution_time_ms: number;  // Total time for all queries
-  average_time_ms: number;          // Average time per query
+  p50_ms: number;              // NEW: Median
+  p95_ms: number;              // NEW: 95th percentile
+  p99_ms: number;              // NEW: 99th percentile
   queries_executed: number;         // Number of queries executed
   results_count: number;            // Number of results found
 }

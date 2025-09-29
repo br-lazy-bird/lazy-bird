@@ -1,6 +1,5 @@
 import React from 'react';
 import { ProgressData } from '../../types/performance';
-import styles from './PerformanceTest.module.css';
 
 interface ProgressDisplayProps {
   progress: ProgressData;
@@ -8,35 +7,31 @@ interface ProgressDisplayProps {
 
 const ProgressDisplay: React.FC<ProgressDisplayProps> = ({ progress }) => {
   return (
-    <div className={styles.progressContainer}>
-      <div className={styles.progressHeader}>
-        <span className={styles.progressText}>
+    <div className="progressContainer">
+      <div className="progressHeader">
+        <span className="progressText">
           Query {progress.progress} of {progress.total}
         </span>
-        <span className={styles.progressPercentage}>
+        <span className="progressPercentage">
           {progress.percentage}%
         </span>
       </div>
 
-      <div className={styles.progressBarBackground}>
+      <div className="progressBarBackground">
         <div 
-          className={styles.progressBarFill}
+          className="progressBarFill"
           style={{ width: `${progress.percentage}%` }}
         />
       </div>
 
-      <div className={styles.progressStats}>
-        <div className={styles.stat}>
-          <span className={styles.statLabel}>Current Query:</span>
-          <span className={styles.statValue}>{progress.current_query_time.toFixed(2)} ms</span>
+      <div className="progressStats">
+        <div className="stat">
+          <span className="statLabel">Current Query:</span>
+          <span className="statValue">{progress.current_query_time.toFixed(2)} ms</span>
         </div>
-        <div className={styles.stat}>
-          <span className={styles.statLabel}>Average Time:</span>
-          <span className={styles.statValue}>{progress.average_time.toFixed(2)} ms</span>
-        </div>
-        <div className={styles.stat}>
-          <span className={styles.statLabel}>Total Time:</span>
-          <span className={styles.statValue}>{progress.total_time.toFixed(2)} ms</span>
+        <div className="stat">
+          <span className="statLabel">Total Time:</span>
+          <span className="statValue">{progress.total_time.toFixed(2)} ms</span>
         </div>
       </div>
     </div>

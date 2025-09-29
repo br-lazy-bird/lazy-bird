@@ -1,5 +1,4 @@
 import React from 'react';
-import styles from './PerformanceTest.module.css';
 
 interface TestControlsProps {
   onStart: () => void;
@@ -8,9 +7,9 @@ interface TestControlsProps {
 
 const TestControls: React.FC<TestControlsProps> = ({ onStart, isRunning }) => {
   return (
-    <div className={styles.controls}>
+    <div className="controls">
       <button
-        className={styles.button}
+        className="button"
         onClick={onStart}
         disabled={isRunning}
       >
