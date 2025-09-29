@@ -1,13 +1,8 @@
-import React from "react";
-import EmployeeSearch from "./components/EmployeeSearch.tsx";
-import "./App.css";
+import React from 'react';
+import PerformanceTest from './components/PerformanceTest/PerformanceTest.tsx';
 
 const App: React.FC = () => {
-  return (
-    <div className="App">
-      <EmployeeSearch />
-    </div>
-  );
+  return <PerformanceTest />;
 };
 
 export default App;

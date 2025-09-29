@@ -43,7 +43,13 @@ class PerformanceService:
         for i in range(total_queries):
 
             start_time = time.time()
-            query_result = self.employee_service.search_john_smith()
+
+            # Run synchronous DB query in executor to avoid blocking event loop
+            loop = asyncio.get_event_loop()
+            query_result = await loop.run_in_executor(
+                None, self.employee_service.search_john_smith
+            )
+
             results_count = query_result.get("results_count", 0)
             end_time = time.time()
             query_time = (end_time - start_time) * 1000  # Convert to ms
@@ -55,10 +61,9 @@ class PerformanceService:
 
             yield f"data: {json.dumps(progress_data)}\n\n"
 
-            # Small delay to prevent overwhelming
-            await asyncio.sleep(0.05)
+            # Yield control to the event loop, allowing FastAPI to send the buffered data immediately
+            await asyncio.sleep(0)
 
-        # Final summary
         final_result = self._create_final_result(
             total_time, total_queries, results_count
         )

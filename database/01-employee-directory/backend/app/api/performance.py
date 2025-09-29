@@ -34,12 +34,13 @@ async def check_search_performance(db: Session = Depends(get_db)) -> StreamingRe
 
         return StreamingResponse(
             progress_generator,
-            media_type="text/plain",
+            media_type="text/event-stream",
             headers={
                 "Cache-Control": "no-cache",
                 "Connection": "keep-alive",
                 "Access-Control-Allow-Origin": "*",
                 "Access-Control-Allow-Headers": "*",
+                "X-Accel-Buffering": "no",
             },
         )
 
