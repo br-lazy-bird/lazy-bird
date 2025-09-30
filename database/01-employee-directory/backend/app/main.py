@@ -6,8 +6,6 @@ from .core.logging_config import setup_logging
 
 setup_logging()
 
-from .api.dev_endpoints import router as dev_router
-from .api.employee_search import router as search_router
 from .api.performance import router as performance_router
 
 load_dotenv()
@@ -24,11 +22,17 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(dev_router)
-app.include_router(search_router)
 app.include_router(performance_router)
 
 
 @app.get("/")
 async def root():
     return {"message": "Employee Directory API is running"}
+
+
+@app.get("/health")
+async def health_check():
+    """
+    Checks if the backend is running properly
+    """
+    return {"status": "healthy", "service": "backend"}

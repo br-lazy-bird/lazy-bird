@@ -20,9 +20,9 @@ class EmployeeSearchService:
         self.db = db
         self.employee_repo = EmployeeRepository(db)
 
-    def search_john_smith(self) -> dict:
+    def get_john_smith_count(self) -> int:
         """
-        Execute the predetermined John Smith search.
+        Get the count of employees with first_name = John and last_name = Smith
 
         Returns:
             dict: Search results with timing information
@@ -32,13 +32,4 @@ class EmployeeSearchService:
                 }
         """
 
-        employee_count, execution_time_seconds = self.employee_repo.search_john_smith()
-        execution_time_ms = round(execution_time_seconds * 1000, 2)
-
-        logger.info(
-            "John Smith search completed: %d results in %.2fms",
-            employee_count,
-            execution_time_ms,
-        )
-
-        return {"results_count": employee_count, "execution_time_ms": execution_time_ms}
+        return self.employee_repo.get_john_smith_count()

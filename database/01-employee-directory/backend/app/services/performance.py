@@ -43,8 +43,7 @@ class PerformanceService:
 
         for i in range(total_queries):
             start_time = time.time()
-            query_result = self.employee_service.search_john_smith()
-            results_count = query_result.get("results_count", 0)
+            results_count = self.employee_service.get_john_smith_count()
             end_time = time.time()
             query_time = (end_time - start_time) * 1000  # Convert to ms
             total_time += query_time

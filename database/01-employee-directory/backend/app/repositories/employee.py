@@ -16,21 +16,19 @@ class EmployeeRepository:
     def __init__(self, db: Session) -> None:
         self.db = db
 
-    def search_john_smith(self) -> tuple[int, float]:
+    def get_john_smith_count(self) -> int:
         """
-        Search for employees with exact name match: John Smith.
+        Get the count of employees with first_name = John and last_name = Smith
 
         Returns:
-            tuple: (list of Employee objects, execution_time_in_seconds)
+            employee_count: count of employees called John Smith
         """
-        start_time = time.perf_counter()
+
         employee_count = (
             self.db.query(Employee)
             .filter(Employee.first_name == "John")
             .filter(Employee.last_name == "Smith")
             .count()
         )
-        end_time = time.perf_counter()
-        execution_time = end_time - start_time
 
-        return employee_count, execution_time
+        return employee_count
