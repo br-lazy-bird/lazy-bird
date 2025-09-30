@@ -4,14 +4,14 @@ const TestDescription: React.FC = () => {
   return (
     <div className="description">
       <p>
-        This test executes multiple search queries for employees named "John Smith" 
-        to measure database performance. Each query searches the employee table and 
-        returns matching results.
+        Our employee directory has been receiving complaints about slow search performance. 
+        Users report that searching for employees takes longer than expected, impacting 
+        their daily productivity.
       </p>
       <p>
-        The test will run 10 queries sequentially and display real-time progress 
-        along with performance metrics including total execution time and percentile 
-        distributions (P50, P95, P99).
+        Run this performance test to measure how the system is actually performing under 
+        typical search workloads. The test will help us understand the extent of the 
+        performance issue and establish a baseline for improvement.
       </p>
     </div>
   );

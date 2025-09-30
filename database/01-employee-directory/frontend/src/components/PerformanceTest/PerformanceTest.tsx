@@ -65,33 +65,31 @@ const PerformanceTest: React.FC = () => {
   };
 
   return (
-    <div className="container">
-      <div className="card">
-        <h1 className="title">
-          Employee Search Performance Test
-        </h1>
+    <div className="card">
+      <h1 className="title">
+        Employee Search Performance Test
+      </h1>
 
-        <TestDescription />
+      <TestDescription />
 
-        <TestControls 
-          onStart={startPerformanceTest}
-          isRunning={state.status === 'running'}
-        />
+      <TestControls
+        onStart={startPerformanceTest}
+        isRunning={state.status === 'running'}
+      />
 
-        {state.status === 'running' && (
-          <ProgressDisplay progress={state.progress} />
-        )}
+      {state.status === 'running' && (
+        <ProgressDisplay progress={state.progress} />
+      )}
 
-        {state.status === 'completed' && (
-          <ResultsDisplay result={state.result} />
-        )}
+      {state.status === 'completed' && (
+        <ResultsDisplay result={state.result} />
+      )}
 
-        {state.status === 'error' && (
-          <div className="error">
-            <p>Error: {state.message}</p>
-          </div>
-        )}
-      </div>
+      {state.status === 'error' && (
+        <div className="error">
+          <p>Error: {state.message}</p>
+        </div>
+      )}
     </div>
   );
 };
