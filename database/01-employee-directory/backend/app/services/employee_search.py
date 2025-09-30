@@ -13,7 +13,6 @@ logger = get_logger(__name__)
 class EmployeeSearchService:
     """
     Service layer for employee search operations.
-    Handles business logic and coordinates between repository and API layers.
     """
 
     def __init__(self, db: Session):
