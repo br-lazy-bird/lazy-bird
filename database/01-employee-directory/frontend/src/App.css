@@ -1,7 +1,24 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow: auto; 
+}
+
+#root {
+  margin: 0;
+  padding: 0;
+}
+
 /* Container and Card */
 .container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 100%);
+  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
   padding: 40px 20px;
   display: flex;
   justify-content: center;
