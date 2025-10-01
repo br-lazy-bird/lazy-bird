@@ -8,6 +8,7 @@ An educational project for learning database performance optimization through ha
 
 ### Prerequisites
 - Docker and Docker Compose installed
+- 2GB+ available RAM
 - Ports 3000, 8000, and 5432 available
 
 ### Setup
