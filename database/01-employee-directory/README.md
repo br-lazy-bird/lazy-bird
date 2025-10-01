@@ -8,15 +8,19 @@ An educational project for learning database performance optimization through ha
 
 ### Prerequisites
 - Docker and Docker Compose installed
-- 4GB+ available RAM
 - Ports 3000, 8000, and 5432 available
 
 ### Setup
 
-```bash
-# Copy environment configuration
-cp .env.development .env
+This project includes a `.env.development` file with development credentials. Copy this file to `.env` before running the system. These credentials are for **local development only** and contain no sensitive data. In production applications, always use proper secret management and never commit credentials to version control.
 
+```bash
+cp .env.development .env
+```
+
+and then:
+
+```bash
 # Start the system
 docker compose up --build
 ```
@@ -73,9 +77,11 @@ You'll know you've successfully optimized the system when:
 
 The performance test displays metrics including:
 - Total execution time
-- P50 (median) query time
-- P95 query time
-- P99 query time
+- P50 (median) query time - 50% of queries were faster than this
+- P95 query time - 95% of queries were faster than this
+- P99 query time - 99% of queries were faster than this
+
+**Understanding Percentiles:** P50 shows typical performance, while P95 and P99 reveal worst-case scenarios that affect user experience. Consistent improvements across all percentiles indicate a robust optimization.
 
 Compare these metrics before and after your optimization to measure the improvement.
 
@@ -104,18 +110,6 @@ docker compose exec db psql -U lazybird_dev -d employee_directory
 - Database: employee_directory
 - Username: lazybird_dev
 - Password: lazybird_pass
-
----
-
-## Security Note
-
-This project includes a `.env.development` file with development credentials. Copy this file to `.env` before running the system:
-
-```bash
-cp .env.development .env
-```
-
-These credentials are for **local development only** and contain no sensitive data. In production applications, always use proper secret management and never commit credentials to version control.
 
 ---
 
