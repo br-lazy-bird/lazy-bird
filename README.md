@@ -58,6 +58,10 @@ Each broken system follows a consistent pattern:
 
 Lazy Bird systems make excellent technical assessments. Share specific exercises with candidates for standardized evaluation.
 
+## Blog
+
+The development is being documented, along with other stuff, in this blog: https://dbrevesf.github.io/ 
+
 ## License
 
 GPL-3.0 License
