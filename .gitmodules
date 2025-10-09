@@ -1,3 +1,0 @@
-[submodule "database/01-employee-directory"]
-	path = database/01-employee-directory
-	url = https://github.com/br-lazy-bird/database-01-employee-directory.git
