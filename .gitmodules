@@ -1,3 +1,6 @@
 [submodule "broken-systems/database-performance/01-employee-directory"]
 	path = broken-systems/database-performance/01-employee-directory
 	url = https://github.com/br-lazy-bird/database-performance-01-employee-directory.git
+[submodule "broken-systems/asynchronous-patterns/01-product-catalog"]
+	path = broken-systems/asynchronous-patterns/01-product-catalog
+	url = git@github.com:br-lazy-bird/asynchronous-patterns-01-product-catalog.git
