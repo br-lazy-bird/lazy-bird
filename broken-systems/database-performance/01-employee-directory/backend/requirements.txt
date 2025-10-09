@@ -1,0 +1,7 @@
+fastapi==0.118.2
+uvicorn[standard]==0.37.0
+sqlalchemy==2.0.43
+psycopg[binary]==3.2.10
+python-dotenv==1.0.0
+pytest==8.4.2
+httpx==0.28.1

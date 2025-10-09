@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+.coverage
+.pytest_cache/
+.venv/
+venv/
+env/
+.env
+
+# pytest
+.pytest_cache/
+.coverage
+htmlcov/
+*.cover
+.hypothesis/
+
+# React/Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+build/
+dist/
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.DS_Store
+
+# Docker
+.dockerignore
+*.log
+
+
+# VsCode
+.vscode

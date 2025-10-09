@@ -1,0 +1,65 @@
+services:
+  db:
+    image: postgres:15
+    container_name: employee_directory_db
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "${POSTGRES_EXTERNAL_PORT}:${POSTGRES_PORT}"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'        # Limit to 0.5 CPU cores (slow CPU simulation)
+          memory: 512M       # Limit to 512MB RAM (memory pressure)
+        reservations:
+          cpus: '0.25'       # Reserve at least 0.25 cores
+          memory: 256M 
+
+  backend:
+    build: ./backend
+    container_name: employee_directory_backend
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+      - PYTHON_ENV=${PYTHON_ENV}
+    ports:
+      - "${BACKEND_PORT}:8000"
+    volumes:
+      - ./backend/app:/app/app
+
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  frontend:
+    build: ./frontend
+    container_name: employee_directory_frontend
+    environment:
+      - NODE_ENV=${NODE_ENV}
+    ports:
+      - "${FRONTEND_PORT}:3000"
+    volumes:
+      - ./frontend/src:/app/src
+      - ./frontend/public:/app/public
+    depends_on:
+      - backend
+    stdin_open: true
+    tty: true
+
+volumes:
+  postgres_data:
