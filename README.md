@@ -8,12 +8,15 @@ Many software engineers face interview rejections due to lack of hands-on experi
 
 ## Available Broken Systems
 
-### Database Domain
+### Database Performance
 
-**Query Performance**
-- [01-employee-directory](https://github.com/br-lazy-bird/database-01-employee-directory) - (Easy)
+- [01-employee-directory](broken-systems/database-performance/01-employee-directory) - (Easy)
 
-More systems coming soon across 8 technical domains: Database, APIs, Caching, Events, Concurrency, Architecture, Security, and Monitoring.
+### Asynchronous Patterns
+
+- [01-product-catalog](broken-systems/asynchronous-patterns/01-product-catalog) - (Easy)
+
+More systems coming soon!
 
 ## Getting Started
 
