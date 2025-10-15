@@ -10,11 +10,11 @@ Many software engineers face interview rejections due to lack of hands-on experi
 
 ### Database Performance
 
-- [01-employee-directory](broken-systems/database-performance/01-employee-directory) - (Easy)
+- [01-employee-directory](https://github.com/br-lazy-bird/database-performance-01-employee-directory) - (Easy)
 
 ### Asynchronous Patterns
 
-- [01-product-catalog](broken-systems/asynchronous-patterns/01-product-catalog) - (Easy)
+- [01-product-catalog](https://github.com/br-lazy-bird/asynchronous-patterns-01-product-catalog) - (Easy)
 
 More systems coming soon!
 
