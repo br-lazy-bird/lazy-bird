@@ -4,3 +4,6 @@
 [submodule "broken-systems/asynchronous-patterns/01-product-catalog"]
 	path = broken-systems/asynchronous-patterns/01-product-catalog
 	url = git@github.com:br-lazy-bird/asynchronous-patterns-01-product-catalog.git
+[submodule "response-time-optimization-01-content-delivery"]
+	path = response-time-optimization-01-content-delivery
+	url = https://github.com/br-lazy-bird/response-time-optimization-01-content-delivery
