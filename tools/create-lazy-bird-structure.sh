@@ -69,8 +69,7 @@ echo "Project directory: broken-systems/$DOMAIN_NAME/$PROJECT_NAME/"
 echo "Creating directories..."
 
 # Frontend structure
-mkdir -p frontend/src
-mkdir -p frontend/public
+mkdir -p frontend
 
 # Backend structure  
 mkdir -p backend/app
@@ -95,12 +94,8 @@ mkdir -p database/init
 
 echo "Creating empty files..."
 
-# Frontend files
-touch frontend/src/.gitkeep
-touch frontend/public/.gitkeep
-touch frontend/package.json
-touch frontend/tsconfig.json
-touch frontend/Dockerfile
+# Frontend files (will be created by Create React App)
+# Note: Run 'npx create-react-app . --template typescript' inside frontend/ directory
 
 # Backend files
 touch backend/app/main.py
@@ -124,8 +119,12 @@ fi
 # Database files
 touch database/init/.gitkeep
 
+# Docker files
+mkdir -p docker 
+touch docker/compose.yaml
+touch docker/compose.test.yaml
+
 # Root files
-touch docker-compose.yml
 touch .env
 touch .env.development
 touch .gitignore
@@ -142,14 +141,8 @@ echo "📂 Structure:"
 tree "." 2>/dev/null || find . -type d -exec echo "📂 {}" \; -o -type f -exec echo "📄 {}" \;
 
 echo ""
-echo "🚀 Next steps:"
-echo "1. cd broken-systems/$DOMAIN_NAME/$PROJECT_NAME"
-echo "2. Start implementing Step 1.1: Individual Service Scaffolding + Dockerfiles"
-echo "3. Follow the Lazy Bird Infrastructure Framework"
-
-echo ""
 echo "📝 Files created (all empty and ready for editing):"
-echo "   - Frontend: package.json, tsconfig.json, Dockerfile"
+echo "   - Frontend: Directory created (use Create React App to populate)"
 echo "   - Backend: main.py, requirements.txt, Dockerfile"
 if [ "$SECONDARY_SERVICES_COUNT" -gt 0 ]; then
     if [ "$SECONDARY_SERVICES_COUNT" -eq 1 ]; then
@@ -158,4 +151,5 @@ if [ "$SECONDARY_SERVICES_COUNT" -gt 0 ]; then
         echo "   - Secondary Services ($SECONDARY_SERVICES_COUNT): main.py, requirements.txt, Dockerfile (each)"
     fi
 fi
-echo "   - Root: docker-compose.yml, .env, .env.development, .gitignore, README.md"
+echo "   - Docker: compose.yaml, compose-test.yaml"
+echo "   - Root: .env, .env.development, .gitignore, README.md"
