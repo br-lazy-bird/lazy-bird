@@ -178,8 +178,11 @@ git push -u origin main
 # Navigate to main lazy-bird repository
 cd /path/to/lazy-bird
 
+# Since the directory structure was already created locally, we need to remove it so we can add it as a submodule now.
+rm -r broken-systems/domain/XX-system-name
+
 # Add this broken system as a submodule
-git submodule add https://github.com/br-lazy-bird/domain-XX-system-name.git domain-XX-system-name
+git submodule add https://github.com/br-lazy-bird/domain-XX-system-name.git broken-systems/domain/XX-system-name
 
 # Commit the submodule addition
 git add .gitmodules domain-XX-system-name

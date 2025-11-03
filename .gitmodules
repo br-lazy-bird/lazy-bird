@@ -7,3 +7,6 @@
 [submodule "response-time-optimization-01-content-delivery"]
 	path = response-time-optimization-01-content-delivery
 	url = https://github.com/br-lazy-bird/response-time-optimization-01-content-delivery
+[submodule "broken-systems/response-time-optimization/01-content-delivery"]
+	path = broken-systems/response-time-optimization/01-content-delivery
+	url = https://github.com/br-lazy-bird/response-time-optimization-01-content-delivery.git
