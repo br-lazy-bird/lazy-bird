@@ -166,8 +166,11 @@ git commit -m "Initial infrastructure setup"
 # Create GitHub repository for this specific broken system
 gh repo create br-lazy-bird/domain-XX-system-name --public --source=. --remote=origin --push
 
-# Or manually create repository on GitHub and add remote
-git remote add origin https://github.com/br-lazy-bird/domain-XX-system-name.git
+# And set the SSH remote origin URL
+git remote set-url origin git@github.com:br-lazy-bird/domain-XX-system-name.git
+
+# Or manually create repository on GitHub and add remote for SSH
+git remote add origin git@github.com:br-lazy-bird/domain-XX-system-name.git
 git branch -M main
 git push -u origin main
 ```
