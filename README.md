@@ -16,6 +16,10 @@ Many software engineers face interview rejections due to lack of hands-on experi
 
 - [01-product-catalog](https://github.com/br-lazy-bird/asynchronous-patterns-01-product-catalog) - (Easy)
 
+### Response Time Optimization
+
+- [01-content-delivery](https://github.com/br-lazy-bird/response-time-optimization-01-content-delivery) - (Easy)
+
 More systems coming soon!
 
 ## Getting Started
