@@ -253,3 +253,6 @@ See working examples in:
 - `broken-systems/response-time-optimization/01-content-delivery/frontend/`
 - `broken-systems/asynchronous-patterns/01-product-catalog/frontend/`
 - `broken-systems/database-performance/01-employee-directory/frontend/`
+
+
+Also, you can find more informations about this idea and a step-by-step to add the new components to a new broken system [here](https://dbrevesf.github.io/posts/Lazy-Bird-Standardizing-Frontend-Components/) .
