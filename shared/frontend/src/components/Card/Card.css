@@ -1,0 +1,14 @@
+.lb-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  max-width: 800px;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .lb-card {
+    padding: 24px;
+  }
+}

@@ -1,0 +1,40 @@
+/* System Title */
+.lb-system-title {
+  font-size: 28px;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0 0 24px 0;
+  text-align: center;
+}
+
+/* Description Section */
+.lb-description-section {
+  color: #64748b;
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+
+.lb-description-section p {
+  margin: 0 0 12px 0;
+}
+
+.lb-description-section p:last-child {
+  margin-bottom: 0;
+}
+
+/* Content Section */
+.lb-content-section {
+  /* Content area - no specific styling needed, just a container */
+}
+
+/* Metrics Section */
+.lb-metrics-section {
+  /* Metrics are styled by the MetricsFooter component */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .lb-system-title {
+    font-size: 24px;
+  }
+}

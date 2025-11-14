@@ -1,0 +1,32 @@
+{
+  "name": "@lazy-bird/ui",
+  "version": "1.0.0",
+  "description": "Shared UI components for Lazy Bird broken systems",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist"
+  },
+  "keywords": [
+    "lazy-bird",
+    "ui",
+    "components",
+    "react"
+  ],
+  "author": "Lazy Bird Project",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
+    "typescript": "^4.9.5"
+  }
+}

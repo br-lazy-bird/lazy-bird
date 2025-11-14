@@ -1,0 +1,21 @@
+.lb-error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 20px;
+}
+
+.lb-error-title {
+  color: #dc2626;
+  margin: 0 0 8px 0;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.lb-error-message {
+  color: #dc2626;
+  margin: 0;
+  font-weight: 500;
+  font-size: 14px;
+}
