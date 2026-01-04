@@ -31,3 +31,6 @@ dist/
 
 # VsCode
 .vscode
+
+# LLM
+CLAUDE.md
