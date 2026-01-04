@@ -4,9 +4,9 @@
 [submodule "broken-systems/asynchronous-patterns/01-product-catalog"]
 	path = broken-systems/asynchronous-patterns/01-product-catalog
 	url = git@github.com:br-lazy-bird/asynchronous-patterns-01-product-catalog.git
-[submodule "response-time-optimization-01-content-delivery"]
-	path = response-time-optimization-01-content-delivery
-	url = https://github.com/br-lazy-bird/response-time-optimization-01-content-delivery
 [submodule "broken-systems/response-time-optimization/01-content-delivery"]
 	path = broken-systems/response-time-optimization/01-content-delivery
 	url = https://github.com/br-lazy-bird/response-time-optimization-01-content-delivery.git
+[submodule "broken-systems/database-performance/02-sales-reports"]
+	path = broken-systems/database-performance/02-sales-reports
+	url = https://github.com/br-lazy-bird/database-performance-02-sales-reports.git
