@@ -1,4 +1,4 @@
-# Sales Reports - PRD (Product Requirements Document)
+# Orders Reports - PRD (Product Requirements Document)
 
 ## Document Information
 
@@ -6,7 +6,7 @@
 |-------|-------|
 | **Project** | Lazy Bird - Broken System #4 |
 | **Domain** | Database → Query Optimization |
-| **System Name** | Sales Reports |
+| **System Name** | Orders Reports |
 | **Difficulty** | 🟡 Medium |
 | **Version** | 1.2 |
 | **Date** | January 2026 |
@@ -17,7 +17,7 @@
 
 ### 1.1 Purpose
 
-Create an intentionally broken sales reporting system that demonstrates the N+1 query problem. Users will experience painfully slow report generation caused by lazy loading of related data, then learn to diagnose and fix the issue using ORM eager loading strategies.
+Create an intentionally broken orders reporting system that demonstrates the N+1 query problem. Users will experience painfully slow report generation caused by lazy loading of related data, then learn to diagnose and fix the issue using ORM eager loading strategies.
 
 ### 1.2 Background
 
@@ -29,7 +29,7 @@ The N+1 query problem is one of the most common performance anti-patterns in app
 
 ### 2.1 The Specific Problem
 
-**Issue:** Sales report endpoint uses lazy loading, causing N+1 queries when fetching orders with customer names and item counts.
+**Issue:** Orders report endpoint uses lazy loading, causing N+1 queries when fetching orders with customer names and item counts.
 
 **Root Cause:** SQLAlchemy relationships default to lazy loading. Accessing `order.customer` and `order.items` inside a loop triggers individual queries for each order.
 
@@ -64,7 +64,7 @@ After completing this broken system, users will be able to:
 
 ### 4.1 Functional Requirements
 
-#### FR-1: Sales Report Display
+#### FR-1: Orders Report Display
 - Display a table of orders showing: Order ID, Customer Name, Item Count, Total, Status
 - Show all orders (no pagination in initial version)
 - Calculate totals from order items
@@ -100,7 +100,7 @@ After completing this broken system, users will be able to:
 
 ### 5.1 Entities
 
-#### Customers
+#### Customer
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | id | Integer | Yes | Primary key |
@@ -109,7 +109,7 @@ After completing this broken system, users will be able to:
 | company | String(100) | No | Company name |
 | created_at | Timestamp | Yes | Account creation date |
 
-#### Orders
+#### Order
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | id | Integer | Yes | Primary key |
@@ -120,7 +120,7 @@ After completing this broken system, users will be able to:
 
 **Status values:** pending, processing, shipped, delivered, cancelled
 
-#### Order Items
+#### Order Item
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | id | Integer | Yes | Primary key |
@@ -149,9 +149,9 @@ customers (1) ←→ (N) orders (1) ←→ (N) order_items
 
 ### 6.1 Endpoints
 
-#### GET /api/reports/sales
+#### GET /api/orders/report
 
-**Description:** Retrieve sales report with all orders
+**Description:** Retrieve orders report with all orders
 
 **Response:**
 ```json
@@ -180,10 +180,7 @@ customers (1) ←→ (N) orders (1) ←→ (N) order_items
 
 **Response:**
 ```json
-{
-  "status": "healthy",
-  "database": "connected"
-}
+{"status": "healthy", "service": "backend"}
 ```
 
 ---
