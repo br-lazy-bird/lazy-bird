@@ -10,15 +10,17 @@ Many software engineers face interview rejections due to lack of hands-on experi
 
 ### Database Performance
 
-- [01-employee-directory](https://github.com/br-lazy-bird/database-performance-01-employee-directory) - (Easy)
+- [01-employee-directory](https://github.com/br-lazy-bird/database-performance-01-employee-directory)
+
+- [02-sales-report](https://github.com/br-lazy-bird/database-performance-02-sales-reports)
 
 ### Asynchronous Patterns
 
-- [01-product-catalog](https://github.com/br-lazy-bird/asynchronous-patterns-01-product-catalog) - (Easy)
+- [01-product-catalog](https://github.com/br-lazy-bird/asynchronous-patterns-01-product-catalog)
 
 ### Response Time Optimization
 
-- [01-content-delivery](https://github.com/br-lazy-bird/response-time-optimization-01-content-delivery) - (Easy)
+- [01-content-delivery](https://github.com/br-lazy-bird/response-time-optimization-01-content-delivery)
 
 More systems coming soon!
 
