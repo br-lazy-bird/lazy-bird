@@ -29,7 +29,7 @@ More systems coming soon!
 ### Option 1: Clone a specific exercise directly
 
 ```bash
-git clone https://github.com/br-lazy-bird/database-01-employee-directory.git
+git clone git@github.com:br-lazy-bird/database-01-employee-directory.git
 cd database-01-employee-directory
 docker-compose up
 ```
@@ -38,7 +38,7 @@ docker-compose up
 
 ```bash
 # Clone main repo
-git clone https://github.com/br-lazy-bird/lazy-bird.git
+git clone git@github.com:br-lazy-bird/lazy-bird.git
 cd lazy-bird
 
 # Clone specific exercise
@@ -50,7 +50,7 @@ docker-compose up
 ### Option 3: Clone all exercises
 
 ```bash
-git clone --recurse-submodules https://github.com/br-lazy-bird/lazy-bird.git
+git clone --recurse-submodules git@github.com:br-lazy-bird/lazy-bird.git
 ```
 
 ## Learning Approach
