@@ -184,7 +184,8 @@ rm -r broken-systems/domain/XX-system-name
 git submodule add https://github.com/br-lazy-bird/domain-XX-system-name.git broken-systems/domain/XX-system-name
 
 # Commit the submodule addition
-git add .gitmodules domain-XX-system-name
+git add .gitmodules
+
 git commit -m "Add domain-XX-system-name broken system"
 git push origin main
 ```
