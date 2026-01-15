@@ -10,3 +10,6 @@
 [submodule "broken-systems/database-performance/02-orders-reports"]
 	path = broken-systems/database-performance/02-orders-reports
 	url = git@github.com:br-lazy-bird/database-performance-02-orders-reports.git
+[submodule "broken-systems/data-integrity/01-flash-sales"]
+	path = broken-systems/data-integrity/01-flash-sales
+	url = git@github.com:br-lazy-bird/data-integrity-01-flash-sales.git

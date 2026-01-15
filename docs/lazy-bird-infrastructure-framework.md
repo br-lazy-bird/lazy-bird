@@ -169,10 +169,6 @@ gh repo create br-lazy-bird/domain-XX-system-name --public --source=. --remote=o
 # And set the SSH remote origin URL
 git remote set-url origin git@github.com:br-lazy-bird/domain-XX-system-name.git
 
-# Or manually create repository on GitHub and add remote for SSH
-git remote add origin git@github.com:br-lazy-bird/domain-XX-system-name.git
-git branch -M main
-git push -u origin main
 ```
 
 ### Add as Submodule to Main Lazy Bird Repository
