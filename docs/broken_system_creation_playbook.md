@@ -127,7 +127,7 @@ Must provide these commands:
 
 ### 4. Documentation
 
-**README.md** (use template at `docs/README_TEMPLATE.md`):
+**README.md** (use template at `docs/templates/README_TEMPLATE.md`):
 - Problem description
 - Learning objectives
 - System architecture diagram (ASCII art)
@@ -135,7 +135,7 @@ Must provide these commands:
 - Performance metrics explanation
 - Further reading links
 
-**DETONADO.md** (use template at `docs/DETONADO_TEMPLATE.md`):
+**DETONADO.md** (use template at `docs/templates/DETONADO_TEMPLATE.md`):
 - Step-by-step problem diagnosis
 - Core concept explanation
 - Root cause analysis
@@ -149,12 +149,12 @@ Must provide these commands:
 - Copy shared components from `shared/frontend/src/` to your frontend
 - Use `SystemLayout` component for consistent UX
 - Import shared styles before system-specific styles
-- Use `MetricsFooter` for displaying performance metrics
+- Use `MetricsFooter` for displaying performance metrics (not all broken system will have metrics)
 - System must be responsive (mobile-friendly)
 
 **Pattern**:
 ```
-Title → Description → Content → Metrics
+Title → Description → Content → Metrics (or any other result)
 ```
 
 **Reference**: See `shared/frontend/README.md` for detailed instructions
@@ -204,7 +204,7 @@ Title → Description → Content → Metrics
 
 ### Measurable Metrics
 
-Every system must show **before/after metrics**:
+Not all broken system will have metrics, but for the ones that has, every system must show **before/after metrics**:
 - Response times (seconds/milliseconds)
 - Query execution times
 - Throughput (requests per second)
@@ -363,7 +363,7 @@ Study these three systems as examples:
 
 ## Getting Help
 
-- **Templates**: Use `docs/README_TEMPLATE.md` and `docs/DETONADO_TEMPLATE.md`
+- **Templates**: Use `docs/templates/README_TEMPLATE.md` and `docs/templates/DETONADO_TEMPLATE.md`
 - **Shared Components**: See `shared/frontend/README.md`
 - **Reference Systems**: Study the three existing implementations
 - **Patterns**: Refer to this playbook
