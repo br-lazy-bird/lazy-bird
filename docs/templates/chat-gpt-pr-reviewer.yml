@@ -1,0 +1,111 @@
+name: AI PR Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate git diff
+        run: |
+          git fetch origin ${{ github.base_ref }}
+          git diff origin/${{ github.base_ref }}...HEAD > diff.txt
+          echo "Diff line count:"
+          wc -l diff.txt
+
+      - name: Install OpenAI SDK
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install openai
+
+      - name: Generate AI review
+        env:
+          CHATGPT_KEY: ${{ secrets.CHATGPT_KEY }}
+        run: |
+          python3 << 'EOF'
+          import os
+          from openai import OpenAI
+
+          client = OpenAI(api_key=os.environ["CHATGPT_KEY"])
+
+          with open("diff.txt") as f:
+              diff = f.read()
+
+          if not diff.strip():
+              print("No changes to review")
+              exit(0)
+
+          prompt = f"""
+                    You are a Senior Software Engineer reviewing a pull request.
+
+          Project context:
+          - This repository is part of the Lazy Bird project.
+          - Lazy Bird is a collection of deliberately broken backend systems built for learning and practice.
+          - Each system contains specific architectural, performance, or design flaws on purpose.
+          - Pull requests fix ONE problem at a time, incrementally.
+          - Code is NOT expected to be production-ready after each PR.
+
+          Current broken system description:
+          - System with a poor performance due to the lack of database indexes.
+
+          Reviewer mindset:
+          - Treat this PR as one step in an incremental learning sequence.
+          - Code style, syntax, and language conventions are NOT part of the intentional flaws.
+          - Distinguish between intentional architectural issues vs. accidental code quality regressions.
+          - Do NOT suggest large refactors or unrelated improvements.
+          - Focus on code cleanliness, maintainability, and adherence to language standards.
+
+          Review guidelines:
+          - Be pragmatic and concise.
+          - Apply standard code quality practices for the language (PEP 8 for Python, etc.).
+          - Flag code that violates language conventions or reduces maintainability.
+          - Check that functionality is preserved (no regressions or broken logic).
+          - Identify dead code or orphaned functions that serve no purpose.
+          - Explain concerns when they impact code quality, maintainability, or correctness.
+          - Performance optimizations are out of scope unless they relate to the stated fix.
+          - Remember: intentional architectural flaws are expected; poor coding practices are not.
+
+          Here is the git diff to review:
+          {diff}
+          """
+
+          response = client.responses.create(
+              model="gpt-4.1-mini",
+              input=prompt
+          )
+
+          review = response.output_text
+
+          with open("review.txt", "w") as f:
+              f.write(review)
+          EOF
+
+      - name: Post AI review comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+
+            if (!fs.existsSync('review.txt')) return;
+
+            const review = fs.readFileSync('review.txt', 'utf8').trim();
+            if (!review) return;
+
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: "🐦 **AI Code Review — Lazy Bird**\n\n" + review
+            });
