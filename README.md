@@ -10,21 +10,21 @@ Many software engineers face interview rejections due to lack of hands-on experi
 
 ### Data Integrity
 
-- [01-flash-saes](https://github.com/br-lazy-bird/data-integrity-01-flash-sales) - MEDIUM
+- [01-flash-sales](https://github.com/br-lazy-bird/data-integrity-01-flash-sales)
 
 ### Database Performance
 
-- [01-employee-directory](https://github.com/br-lazy-bird/database-performance-01-employee-directory) - EASY
+- [01-employee-directory](https://github.com/br-lazy-bird/database-performance-01-employee-directory)
 
-- [02-orders-report](https://github.com/br-lazy-bird/database-performance-02-orders-reports) - MEDIUM
+- [02-orders-report](https://github.com/br-lazy-bird/database-performance-02-orders-reports)
 
 ### Asynchronous Patterns
 
-- [01-product-catalog](https://github.com/br-lazy-bird/asynchronous-patterns-01-product-catalog) - EASY
+- [01-product-catalog](https://github.com/br-lazy-bird/asynchronous-patterns-01-product-catalog)
 
 ### Response Time Optimization
 
-- [01-content-delivery](https://github.com/br-lazy-bird/response-time-optimization-01-content-delivery) - EASY
+- [01-content-delivery](https://github.com/br-lazy-bird/response-time-optimization-01-content-delivery)
 
 More systems coming soon!
 
