@@ -8,6 +8,10 @@ Many software engineers face interview rejections due to lack of hands-on experi
 
 ## Available Broken Systems
 
+### Data Integrity
+
+- [01-flash-saes](https://github.com/br-lazy-bird/data-integrity-01-flash-sales) - MEDIUM
+
 ### Database Performance
 
 - [01-employee-directory](https://github.com/br-lazy-bird/database-performance-01-employee-directory) - EASY
