@@ -6,9 +6,9 @@
   gap: 12px;
   padding: 16px;
   margin-top: 20px;
-  background: #f0f9ff;
+  background: #ecfdf5;
   border-radius: 8px;
-  border: 1px solid #bfdbfe;
+  border: 1px solid #a7f3d0;
 }
 
 .lb-metrics-single .lb-metric-label {
@@ -20,7 +20,7 @@
 .lb-metrics-single .lb-metric-value {
   font-size: 22px;
   font-weight: 700;
-  color: #2563eb;
+  color: #059669;
   font-family: 'Courier New', monospace;
 }
 
@@ -31,9 +31,9 @@
   gap: 12px;
   padding: 16px;
   margin-top: 20px;
-  background: #f0f9ff;
+  background: #ecfdf5;
   border-radius: 8px;
-  border: 1px solid #bfdbfe;
+  border: 1px solid #a7f3d0;
 }
 
 .lb-metric-item {
@@ -43,7 +43,7 @@
   padding: 12px;
   background: white;
   border-radius: 6px;
-  border: 1px solid #bfdbfe;
+  border: 1px solid #a7f3d0;
 }
 
 .lb-metrics-multiple .lb-metric-label {
@@ -55,7 +55,7 @@
 .lb-metrics-multiple .lb-metric-value {
   font-size: 18px;
   font-weight: 700;
-  color: #2563eb;
+  color: #059669;
   font-family: 'Courier New', monospace;
 }
 

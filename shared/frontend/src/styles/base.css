@@ -24,7 +24,7 @@ body {
 /* Container and Layout */
 .container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+  background: linear-gradient(135deg, #064e3b 0%, #10b981 100%);
   padding: 40px 20px 40px 20px;
   display: flex;
   flex-direction: column;
@@ -50,7 +50,7 @@ body {
 
 /* Button */
 .button {
-  background: #2563eb;
+  background: #059669;
   color: white;
   border: none;
   border-radius: 8px;
@@ -62,9 +62,9 @@ body {
 }
 
 .button:hover:not(:disabled) {
-  background: #1d4ed8;
+  background: #047857;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+  box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
 }
 
 .button:active:not(:disabled) {
@@ -111,13 +111,13 @@ body {
 }
 
 .dropdown:hover:not(:disabled) {
-  border-color: #2563eb;
+  border-color: #059669;
 }
 
 .dropdown:focus {
   outline: none;
-  border-color: #2563eb;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  border-color: #059669;
+  box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);
 }
 
 .dropdown:disabled {
@@ -151,7 +151,7 @@ body {
 .progressPercentage {
   font-size: 18px;
   font-weight: 600;
-  color: #2563eb;
+  color: #059669;
 }
 
 .progressBarBackground {
@@ -165,7 +165,7 @@ body {
 
 .progressBarFill {
   height: 100%;
-  background: linear-gradient(90deg, #2563eb 0%, #3b82f6 100%);
+  background: linear-gradient(90deg, #059669 0%, #10b981 100%);
   transition: width 0.3s ease;
   border-radius: 12px;
 }
