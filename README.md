@@ -73,7 +73,7 @@ Lazy Bird systems make excellent technical assessments. Share specific exercises
 
 ## Blog
 
-The development is being documented, along with other stuff, in this blog: https://dbrevesf.github.io/ 
+The development is being documented here: https://lazybird.com.br/blog/
 
 ## License
 
