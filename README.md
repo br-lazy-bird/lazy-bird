@@ -34,8 +34,6 @@ More systems coming soon!
 
 ```bash
 git clone git@github.com:br-lazy-bird/database-01-employee-directory.git
-cd database-01-employee-directory
-docker-compose up
 ```
 
 ### Option 2: Clone via main repository
@@ -44,11 +42,8 @@ docker-compose up
 # Clone main repo
 git clone git@github.com:br-lazy-bird/lazy-bird.git
 cd lazy-bird
-
 # Clone specific exercise
 git submodule update --init database/01-employee-directory
-cd database/01-employee-directory
-docker-compose up
 ```
 
 ### Option 3: Clone all exercises
