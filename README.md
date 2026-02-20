@@ -4,6 +4,7 @@ A repository of intentionally broken systems designed for learning performance o
 
 ## About
 
+
 Many software engineers face interview rejections due to lack of hands-on experience with specific problems they understand only theoretically. Lazy Bird addresses this by providing complete, realistic systems with intentional performance issues across the full technology stack.
 
 ## Available Broken Systems
