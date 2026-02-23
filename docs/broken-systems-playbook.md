@@ -50,17 +50,17 @@ Not all broken systems require metrics, but when applicable, systems must show b
 
 ### Standard Architecture Pattern
 
-The framework is technology-agnostic and supports any tech stack. The current default implementation uses a 4-service microservices pattern:
-- **Frontend** (React + TypeScript) - User interface
-- **Main Backend** (FastAPI) - API Gateway/Primary service
-- **Secondary Service** (FastAPI) - Specialized service (database access, external APIs, etc.)
-- **Database** (PostgreSQL) - Data persistence
+The framework is technology-agnostic and supports any tech stack. A typical pattern uses a 4-service microservices architecture:
+- **Frontend** - User interface (React, Vue, Angular, etc.)
+- **Main Backend** - API Gateway/Primary service (Java/Spring Boot, Python/FastAPI, Node.js/Express, Go, etc.)
+- **Secondary Service** - Specialized service for database access, external APIs, etc. (any backend technology)
+- **Database** - Data persistence (PostgreSQL, MySQL, MongoDB, etc.)
 
 This pattern can be adapted based on learning objectives and technology preferences:
 - Remove secondary service for simple 3-tier systems
 - Add additional services for complex distributed system demonstrations
-- Replace with alternative tech stacks (Node.js, Django, Go, etc.)
-- Swap PostgreSQL for other databases when needed
+- Use any combination of frontend and backend technologies
+- Choose appropriate database technology for the learning objective
 
 ---
 
@@ -80,19 +80,16 @@ broken-systems/{category}/{##-system-name}/
 │   └── compose.test.yml
 ├── frontend/
 │   ├── Dockerfile
-│   ├── src/
-│   │   ├── shared-components/
-│   │   ├── shared-styles/
-│   │   └── components/
-│   └── [package management files]
+│   ├── src/ (or appropriate source directory)
+│   └── [framework-specific files]
 ├── backend/
 │   ├── Dockerfile
-│   ├── app/
+│   ├── src/ (or app/)
 │   ├── tests/
-│   └── [dependency files]
+│   └── [dependency files - pom.xml, requirements.txt, package.json, etc.]
 ├── secondary-service/ (optional)
 │   ├── Dockerfile
-│   ├── app/
+│   ├── src/ (or app/)
 │   └── [dependency files]
 └── database/ (if needed)
     ├── init-dev/
@@ -134,6 +131,8 @@ Must provide these commands:
 - `make logs` - Show application logs
 - `make test` - Run integration tests
 - `make test-build` - Rebuild and run tests
+
+There is a template within the docs/templates/ directory.
 
 **Environment Variables**
 
@@ -183,46 +182,31 @@ Must provide these commands:
 
 **.gitignore**
 
-Example template (adapt to your tech stack):
+Create a .gitignore appropriate for your tech stack. Include at minimum:
 
 ```gitignore
-# Environment variables
+# Environment variables (always required)
 .env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
 
-# Docker
+# Docker (always required)
 .docker/
 docker-compose.override.yml
 
-# Frontend (Node.js)
-frontend/node_modules/
-frontend/npm-debug.log*
-frontend/yarn-debug.log*
-frontend/yarn-error.log*
-frontend/build/
-frontend/.DS_Store
+# Frontend - add patterns specific to your framework
+# Examples:
+# - Node.js: node_modules/, build/, dist/, .next/, .nuxt/
+# - Other: framework-specific build artifacts and dependencies
 
-# Backend (Python)
-backend/__pycache__/
-backend/*.py[cod]
-backend/*$py.class
-backend/*.so
-backend/.coverage
-backend/htmlcov/
-backend/.pytest_cache/
-backend/.mypy_cache/
-backend/venv/
-backend/env/
-
-# Secondary Service (Python)
-secondary-service/__pycache__/
-secondary-service/*.py[cod]
-secondary-service/*$py.class
-secondary-service/venv/
-secondary-service/env/
+# Backend - add patterns specific to your language
+# Examples:
+# - Python: __pycache__/, *.py[cod], venv/, .pytest_cache/
+# - Java: target/, *.class, *.jar (if not needed), .gradle/
+# - Node.js: node_modules/, dist/
+# - Go: bin/, *.exe
 
 # Database
 database/data/
@@ -257,19 +241,23 @@ logs/
 
 ### Frontend Standards
 
-**Requirements:**
+**Requirements (technology-agnostic):**
 - System must be responsive (mobile-friendly)
-- Hot reload enabled
+- Hot reload enabled for development
+- Consistent UI pattern: Title → Description → Content → Metrics/Results
+- Use shared components when available for your tech stack
 
 **For React frontends:**
 - Copy shared components from `shared/frontend/src/` to your frontend
 - Use `SystemLayout` component for consistent UX
 - Import shared styles before system-specific styles
 - Use `MetricsFooter` for displaying performance metrics (when applicable)
-- Follow pattern: Title → Description → Content → Metrics (or any other result)
 - See `shared/frontend/README.md` for detailed instructions
 
-**Note:** Shared components are React-specific. For other tech stacks, implement equivalent UI patterns.
+**For other tech stacks:**
+- Implement equivalent UI patterns and components
+- Maintain consistent look and feel across broken systems
+- Create reusable components within your chosen framework
 
 ### Backend Standards
 
@@ -288,7 +276,7 @@ logs/
 - Tests make real HTTP requests (not mocked)
 - Tests validate the broken behavior (e.g., slow performance)
 - Tests include clear success messages
-- Test configuration in `conftest.py` (or equivalent)
+- Use appropriate testing framework for your tech stack (JUnit, pytest, Jest, etc.)
 
 ---
 
@@ -386,17 +374,15 @@ git push origin main
 
 **Step 1.2: Frontend Setup**
 
-Example for React:
+Navigate to empty `frontend/` directory and initialize your chosen frontend framework:
 
-Navigate to empty `frontend/` directory and run:
+**Examples:**
+- React: `npx create-react-app . --template typescript`
+- Vue: `npm create vue@latest .`
+- Angular: `ng new . --directory ./`
+- Next.js: `npx create-next-app@latest .`
 
-```bash
-npx create-react-app . --template typescript
-```
-
-Create `frontend/Dockerfile` manually after setup completes.
-
-Other frontend frameworks can be used following their respective setup processes.
+Create `frontend/Dockerfile` manually after setup completes, appropriate for your framework.
 
 **Step 1.3: Docker Compose Integration**
 
@@ -432,8 +418,8 @@ Development Workflow:
 
 ### Phase 2: Implementation
 
-1. **Frontend**: Copy shared components, create UI
-2. **Backend**: Implement API with intentional issue
+1. **Frontend**: Copy shared components (if available for your tech stack), create UI
+2. **Backend**: Implement API with intentional issue using your chosen technology
 3. **Database**: Create schema and seed data (if needed)
 4. **Docker**: Configure compose files for dev and test
 
@@ -493,9 +479,9 @@ Development Workflow:
 - Test compose uses `tmpfs` for databases
 
 **Frontend Standards**
-- Uses `SystemLayout` component
-- Imports shared styles first
-- Uses `MetricsFooter` for metrics (when applicable)
+- Uses shared components when available for tech stack
+- Follows consistent UI patterns across systems
+- Displays metrics appropriately (when applicable)
 - Responsive design
 
 **Backend Standards**

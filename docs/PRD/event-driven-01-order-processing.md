@@ -120,4 +120,4 @@ See `design-docs/event-driven-01-order-processing.md` for technical architecture
 
 ## 11. Dependencies
 
-Docker 20.10+, Docker Compose 2.0+, Node.js 18+, Python 3.11+, PostgreSQL 15+, RabbitMQ 3.12+
+Docker 20.10+, Docker Compose 2.0+, Node.js 18+, Java 21, Spring Boot 4.0.3, PostgreSQL 15+, RabbitMQ 3.12+

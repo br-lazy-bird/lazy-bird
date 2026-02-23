@@ -22,7 +22,7 @@ Asynchronous order processing system demonstrating dead letter queue (DLQ) handl
 ```
 ┌─────────────┐     ┌─────────────┐     ┌─────────────┐     ┌─────────────┐
 │   Frontend  │────▶│   Backend   │────▶│  RabbitMQ   │────▶│   Worker    │
-│   (React)   │     │  (FastAPI)  │     │             │     │  (Python)   │
+│   (React)   │     │   (Java)    │     │             │     │   (Java)    │
 └─────────────┘     └──────┬──────┘     └──────┬──────┘     └──────┬──────┘
                            │                   │                   │
                            ▼                   │                   ▼
@@ -59,45 +59,14 @@ The silent failure occurs through realistic infrastructure:
 
 ## The Broken Worker Logic
 
-```python
-def process_message(message):
-    order_id = message['order_id']
-
-    try:
-        # Call external fulfillment service
-        fulfillment_service.process(order_id)
-
-        # Update order status
-        update_order_status(order_id, 'completed')
-        channel.basic_ack(delivery_tag)
-
-    except FulfillmentError:
-        # Reject message → goes to DLQ
-        channel.basic_nack(delivery_tag, requeue=False)
-        # ⚠️ BUG: No one consumes the DLQ!
-```
-
-The worker correctly routes failed messages to the DLQ, but there's no consumer to process them.
+The worker correctly routes failed messages to the DLQ, but there's no consumer to process them. When the fulfillment service fails, messages are rejected and sent to the DLQ where they remain unprocessed forever.
 
 ## Solution: DLQ Consumer
 
 Create a separate consumer that:
 1. Reads from the DLQ
-2. Retries with exponential backoff
+2. Retries with exponential backoff (1s, 2s, 4s, 8s...)
 3. After max retries, marks order as `failed` with reason
-
-```python
-def handle_dlq_message(message):
-    order_id = message['order_id']
-    retry_count = get_retry_count(message)
-
-    if retry_count < MAX_RETRIES:
-        delay = calculate_backoff(retry_count)  # 1s, 2s, 4s, 8s...
-        republish_with_delay(message, retry_count + 1, delay)
-    else:
-        update_order_status(order_id, 'failed',
-                          reason='Max retries exceeded')
-```
 
 **Why other approaches fail**:
 
@@ -146,26 +115,14 @@ Single page with "Place 5 Orders" button, order list with status, and reset butt
 | Component | Technology | Notes |
 |-----------|------------|-------|
 | Frontend | React + TypeScript | Simple order form and list |
-| Backend | FastAPI | REST API, RabbitMQ publisher |
-| Worker | Python + pika | Main queue consumer |
+| Backend | Java 21 + Spring Boot 4.0.3 | REST API, RabbitMQ publisher |
+| Worker | Java 21 + Spring AMQP | Main queue consumer |
 | Queue | RabbitMQ | With DLQ configuration |
 | Database | PostgreSQL | Order persistence |
 
 ## RabbitMQ Configuration
 
-```python
-# Main queue with DLQ routing
-channel.queue_declare(
-    queue='orders.queue',
-    arguments={
-        'x-dead-letter-exchange': '',
-        'x-dead-letter-routing-key': 'orders.dlq'
-    }
-)
-
-# Dead letter queue
-channel.queue_declare(queue='orders.dlq')
-```
+The main queue is configured with dead letter routing. When messages fail processing (are rejected with requeue=false), they automatically route to the DLQ. The DLQ requires a separate consumer to handle failed messages.
 
 ## Project Structure
 
@@ -174,8 +131,9 @@ channel.queue_declare(queue='orders.dlq')
 ├── frontend/
 ├── backend/
 ├── worker/
-│   ├── consumer.py      # Main queue consumer
-│   └── dlq_consumer.py  # Missing! (the fix)
+│   └── src/main/java/
+│       └── consumer/     # Main queue consumer
+│                         # dlq_consumer missing! (the fix)
 ├── database/
 │   └── init/
 ├── docker/
