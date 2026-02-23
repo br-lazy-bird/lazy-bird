@@ -34,3 +34,6 @@ dist/
 
 # LLM
 CLAUDE.md
+
+# IntelliJ
+.idea/
