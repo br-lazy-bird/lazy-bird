@@ -98,7 +98,7 @@ broken-systems/{category}/{##-system-name}/
 
 ### Naming Conventions
 
-**Categories** (by issue type):
+**Domains** (by issue type):
 - `database-performance/`
 - `asynchronous-patterns/`
 - `response-time-optimization/`
@@ -131,6 +131,7 @@ Must provide these commands:
 - `make logs` - Show application logs
 - `make test` - Run integration tests
 - `make test-build` - Rebuild and run tests
+- Other useful commands must be added accordingly.
 
 There is a template within the docs/templates/ directory.
 
@@ -169,75 +170,18 @@ There is a template within the docs/templates/ directory.
 - Setup and usage instructions
 - Performance metrics explanation
 - Further reading links
-- Any mention or hint to the fix
+- No mention or hint of the fix
+- Do not use any icon, just raw text.
 
 `DETONADO.md` (use template at `docs/templates/DETONADO.md`):
 - Step-by-step problem diagnosis
 - Core concept explanation
-- Link to external resources for in depth knowledge
+- Links to external resources for in-depth knowledge
 - Root cause analysis
 - Solution implementation steps
 - Verification and expected results
 - Production considerations
-
-**.gitignore**
-
-Create a .gitignore appropriate for your tech stack. Include at minimum:
-
-```gitignore
-# Environment variables (always required)
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-# Docker (always required)
-.docker/
-docker-compose.override.yml
-
-# Frontend - add patterns specific to your framework
-# Examples:
-# - Node.js: node_modules/, build/, dist/, .next/, .nuxt/
-# - Other: framework-specific build artifacts and dependencies
-
-# Backend - add patterns specific to your language
-# Examples:
-# - Python: __pycache__/, *.py[cod], venv/, .pytest_cache/
-# - Java: target/, *.class, *.jar (if not needed), .gradle/
-# - Node.js: node_modules/, dist/
-# - Go: bin/, *.exe
-
-# Database
-database/data/
-*.sql.bak
-*.dump
-
-# IDEs
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-
-# OS
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-
-# Logs
-*.log
-logs/
-
-# Temporary files
-*.tmp
-*.temp
-.cache/
-```
+- Do not use any icon, just raw text.
 
 ### Frontend Standards
 
@@ -288,36 +232,21 @@ logs/
 2. Choose appropriate technology stack
 3. Define measurable success criteria
 4. Sketch system architecture
+5. Plan using STC - Small Testable Chunks because it's important to test everything before committing. Also, we need to be able to continue the work even after running out of tokens.
+6. You don't need to provide code for the planning. We want a detailed plan, with STC, but we don't want to pollute the document with a lot of code.
+7. You should bring up any possible mistakes or architecture failures in the plan.
+8. You should prioritize a clean architecture, with separation of concerns.
+9. You must avoid duplications but we must be able to consider trade-offs. So, whenever a need for duplication arises, we need to discuss it.
 
 ### Phase 1: Infrastructure Setup
 
-**Step 0: Create Directory Structure**
+**Step 1.0: Directory Creation**
 
-Navigate to tools directory and create standard structure:
+First you need to create the directory where you develop the broken system. All the broken systems are located within the directory `lazy-bird/broken-systems` and each broken system is located within its proper domain. For example, `data-integrity/01-flash-sales`. So, you just have to create the directory according to its domain and name convention [described above](#naming-conventions).
 
-```bash
-cd tools/
-./create-lazy-bird-structure.sh <domain-name> <project-name> [secondary-services-count]
+**Step 1.1: Repository Setup for Version Control**
 
-# Examples:
-./create-lazy-bird-structure.sh database 01-employee-directory 0
-./create-lazy-bird-structure.sh caching 01-content-delivery 1
-./create-lazy-bird-structure.sh apis 01-parallel-calls 2
-```
-
-**Script Parameters:**
-- `domain-name`: Domain category (database, caching, apis, etc.)
-- `project-name`: Specific broken system name (01-employee-directory, etc.)
-- `secondary-services-count`: Number of secondary services (default: 0)
-  - 0: No secondary services (3-tier: frontend + backend + database)
-  - 1: One secondary service (4-tier: standard microservices pattern)
-  - 2+: Multiple secondary services (numbered: secondary-service-1, secondary-service-2, etc.)
-
-**Note:** The `frontend/` directory is created empty to avoid conflicts with frontend frameworks. Populate it in Step 1.2.
-
-**Step 1.1: Repository Setup**
-
-After infrastructure setup, create project repository as git submodule:
+After directory setup, create a project repository as a git submodule, within the directory created:
 
 ```bash
 # Initialize git repository for this broken system
@@ -336,7 +265,7 @@ gh repo create br-lazy-bird/domain-XX-system-name --public --source=. --remote=o
 git remote set-url origin git@github.com:br-lazy-bird/domain-XX-system-name.git
 ```
 
-Add as submodule to main Lazy Bird repository:
+Add as a submodule to the main Lazy Bird repository:
 
 ```bash
 # Navigate to main lazy-bird repository
@@ -372,83 +301,95 @@ git commit -m "Update domain-XX-system-name submodule"
 git push origin main
 ```
 
-**Step 1.2: Frontend Setup**
+**Step 1.2: .gitignore**
 
-Navigate to empty `frontend/` directory and initialize your chosen frontend framework:
+Create a `.gitignore` file appropriate for your tech stack and update it accordingly.
 
-**Examples:**
-- React: `npx create-react-app . --template typescript`
-- Vue: `npm create vue@latest .`
-- Angular: `ng new . --directory ./`
-- Next.js: `npx create-next-app@latest .`
+**Branch Strategy**
+- We will always work on the `develop` branch during development. If the branch doesn't exist, you should create it. But the `main` branch will still exist and it will be the main branch.
 
-Create `frontend/Dockerfile` manually after setup completes, appropriate for your framework.
 
-**Step 1.3: Docker Compose Integration**
+### Phase 2: Implementation
+   
+1. **Database**: Create schema and seed data (if needed)
+2. **Backend**: Implement API with intentional issue using your chosen technology
+3. **Frontend**: Copy shared components (if available for your tech stack) and create UI. You can use any frontend technology as long as you follow the styles defined in the shared components directory: `lazy-bird/shared/frontend`.
 
-Service Orchestration:
+**Service Orchestration**
 - Define all services with proper dependencies in `docker/compose.yml`
 - Create custom network for internal communication
 - Configure port mappings for external access
-- Set service dependencies with startup order (database → services → frontend)
+- Set service dependencies with startup order (database → services (backend) → frontend)
 
-Environment Configuration:
+**Environment Configuration**
 - Create `.env.development` file
 - Define database credentials and service endpoints
 - Configure debug modes and hot reload settings
 
-Volume Management:
-- Mount source code for hot reload during development
-- Create data volume for persistence
-- Configure centralized logging setup (optional)
-
-**Step 1.4: End-to-End Validation**
-
-Startup Verification:
-- `make run` works cleanly
-- All services report healthy status
-- Internal network connectivity verified
-- All exposed ports accessible from host
-
-Development Workflow:
-- Code changes reflect immediately with hot reload
-- Service logs easily accessible
-- `make stop` stops all services cleanly
-- Image rebuilding works for dependency changes
-
-### Phase 2: Implementation
-
-1. **Frontend**: Copy shared components (if available for your tech stack), create UI
-2. **Backend**: Implement API with intentional issue using your chosen technology
-3. **Database**: Create schema and seed data (if needed)
-4. **Docker**: Configure compose files for dev and test
-
 ### Phase 3: Testing
 
-1. Create E2E tests that demonstrate the issue
+1. Create E2E tests that demonstrate that the broken system is running as expected. This means the root cause of the issue is present but the system is running properly.
 2. Ensure tests run in Docker
 3. Verify tests show measurable performance problems
 
 ### Phase 4: Documentation
 
-1. Fill in README.md with problem description
+1. Create README.md with problem description
 2. Create DETONADO.md with solution steps
-3. Add architecture diagrams
-4. Document expected metrics
 
 ### Phase 5: Verification
 
-1. Follow own README to setup system
-2. Follow own DETONADO to fix issue
-3. Verify if the problem is fixed
-4. Revert changes to restore broken state
-5. Run through quality checklist
+# Testing Broken Systems
 
----
+When asked to test broken systems (e.g., "test the systems", "test the broken systems", "run QA on the projects") or a single broken system (e.g., "test the flash-sales system", "test database-performance/01-employee-directory"), follow this protocol:
 
-## PART IV: REFERENCE
+## Setup
+- **For all systems:** Create a fresh clone in `Projects/temp/` directory (create if needed). Follow cloning instructions in the project's README.
+- **For a single system:** Use the existing repository or the specific submodule directory
 
-### Quality Checklist
+## For Each Broken System (or the specified system)
+
+**1. Documentation Review**
+- Read `README.md` - check for typos, grammar, English mistakes, unclear instructions
+- Read `DETONADO.md` - check for typos, grammar, English mistakes, unclear instructions
+
+**2. Build & Test**
+- Follow the README instructions to run tests and start the system
+- If instructions are unclear or incomplete, flag this as an issue
+
+**3. Verify Broken State**
+- Confirm the system exhibits the documented problem
+- Note the state before fix (error behavior, performance, data issues, etc.)
+
+**4. Apply Fix**
+- Follow ONLY the DETONADO instructions to fix the issue
+- Do not use external knowledge - the DETONADO must be self-sufficient
+- If instructions fail to fix the issue, flag this as a critical problem
+
+**5. Verify Fixed State**
+- Confirm the fix resolves the problem
+- Note the state after fix
+
+**6. Cleanup**
+- Do NOT commit any changes
+- Revert all changes and clean up with `make clean`
+
+## Feedback
+
+Create a `feedback.txt` file in each broken-system directory with:
+- STATUS: `READY TO PUBLISH` or `NEEDS FIX`
+- README.md assessment
+- DETONADO.md assessment
+- Build & Run results
+- Testing results (state before and after fix)
+- ISSUES FOUND: List any problems or "None"
+
+**Important:** Focus only on publication readiness (code, build, docs). Do not suggest improvements to code style, architecture, or features.
+
+
+# Quality Checklist
+
+After testing the broken system, you should run through the quality checklist:
 
 **Functionality**
 - System starts with `make run`
