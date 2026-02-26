@@ -122,18 +122,11 @@ broken-systems/{category}/{##-system-name}/
 
 **Makefile**
 
-Must provide these commands:
-- `make help` - List available commands
-- `make run` - Start development environment
-- `make build` - Build and start with fresh images
-- `make stop` - Stop all services
-- `make clean` - Remove all containers and volumes
-- `make logs` - Show application logs
-- `make test` - Run integration tests
-- `make test-build` - Rebuild and run tests
-- Other useful commands must be added accordingly.
+We can create the Makefile as soon as the project grows. The idea is to populating it with new commands whenever it's available. For example, as soon as we have the database, we can create the `make db-shell` to open the database shell tool, as soon as we setup a web framework we can create the `make run` and so on.
 
-There is a template within the docs/templates/ directory.
+There is a template within the docs/templates/ directory. Most of these commands will be present in all broken systems but there are some others that will be specific. 
+
+You should follow the template regarding using of variables and how the commands is executed.
 
 **Environment Variables**
 
@@ -152,6 +145,7 @@ There is a template within the docs/templates/ directory.
 - Volume mounts for hot-reload during development
 - Environment variables from `.env`
 - Proper `depends_on` with `condition: service_healthy`
+- The attribute `version` is obsolete, it will be ignored, so don't add it.
 
 `docker/compose.test.yml` (Testing):
 - Separate test environment
@@ -160,6 +154,7 @@ There is a template within the docs/templates/ directory.
 - `API_URL` environment variable in test-runner
 - Test database uses `tmpfs` (no persistence)
 - No port exposure except for debugging
+- The attribute `version` is obsolete, it will be ignored, so don't add it.
 
 **Documentation**
 
@@ -212,6 +207,7 @@ There is a template within the docs/templates/ directory.
 - Must use environment variables for configuration
 - Should include structured logging
 - Should follow clean architecture (separate concerns)
+- Should follow SOLID Principles
 - Hot reload enabled
 
 **Testing Requirements:**
@@ -246,7 +242,7 @@ First you need to create the directory where you develop the broken system. All 
 
 **Step 1.1: Repository Setup for Version Control**
 
-After directory setup, create a project repository as a git submodule, within the directory created:
+After directory setup, create a project repository and add it as a git submodule. We must have two branchs `main` (the default) and `develop`. Everything that we develop will be in `develop` branch. When every piece of work is done, I will personally review it and merge it accordingly. 
 
 ```bash
 # Initialize git repository for this broken system
