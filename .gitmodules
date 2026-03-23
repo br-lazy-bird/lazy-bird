@@ -13,3 +13,6 @@
 [submodule "broken-systems/data-integrity/01-flash-sales"]
 	path = broken-systems/data-integrity/01-flash-sales
 	url = git@github.com:br-lazy-bird/data-integrity-01-flash-sales.git
+[submodule "broken-systems/event-driven/01-order-processing"]
+	path = broken-systems/event-driven/01-order-processing
+	url = git@github.com:br-lazy-bird/event-driven-01-order-processing.git

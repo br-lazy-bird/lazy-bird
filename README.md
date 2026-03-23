@@ -27,6 +27,10 @@ Many software engineers face interview rejections due to lack of hands-on experi
 
 - [01-content-delivery](https://github.com/br-lazy-bird/response-time-optimization-01-content-delivery)
 
+### Event-Driven Architecture
+
+- [01-order-processing](https://github.com/br-lazy-bird/event-driven-01-order-processing)
+
 More systems coming soon!
 
 ## Getting Started
